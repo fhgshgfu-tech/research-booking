@@ -75,7 +75,7 @@ logoutBtn.addEventListener('click', async () => {
 
 // جلب الحجوزات من السيرفر وعرضها بالجدول
 function loadBookings() {
-    fetch('http://localhost:3000/api/bookings')
+   fetch('https://mindful-growth-production-7692.up.railway.app/api/bookings')
         .then(response => response.json())
         .then(bookings => {
             bookingsBody.innerHTML = '';
