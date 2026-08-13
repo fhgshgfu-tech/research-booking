@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة حجز الخدمات البحثية</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- الهيدر -->
+    <header class="header">
+        <div class="logo">🏫 منصة الخدمات البحثية</div>
+        <nav>
+            <a href="#services">الخدمات</a>
+            <a href="#how">كيف يعمل الموقع؟</a>
+            <a href="#contact">تواصل معنا</a>
+        </nav>
+    </header>
+
+    <!-- القسم الرئيسي -->
+    <section class="hero">
+        <h1>نساعدك في رحلتك البحثية 🎓</h1>
+        <p>احجز استشارة، تدقيق، تحليل بيانات، أو مراجعة خطة بحثك بكل سهولة</p>
+        <div class="hero-buttons">
+            <button class="btn-primary" id="bookNowBtn">احجز الآن</button>
+            <button class="btn-secondary" id="servicesBtn">تصفح الخدمات</button>
+        </div>
+    </section>
+
+    <!-- قسم الخدمات -->
+    <section class="services" id="services">
+        <h2>خدماتنا</h2>
+        <div class="services-grid">
+
+            <div class="service-card">
+                <div class="service-icon">📚</div>
+                <h3>الاستشارات البحثية</h3>
+                <p>مساعدة الطالب في اختيار المنهج</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📝</div>
+                <h3>التدقيق</h3>
+                <p>تدقيق لغوي وتنسيق</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>تحليل البيانات</h3>
+                <p>المساعدة في التحليل الإحصائي</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📖</div>
+                <h3>المراجع</h3>
+                <p>تنظيم وتدقيق المصادر</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎓</div>
+                <h3>خطة البحث</h3>
+                <p>مراجعة خطة البحث</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- قسم كيف يعمل الموقع -->
+    <section class="how-it-works" id="how">
+        <h2>كيف يعمل الموقع؟</h2>
+        <div class="steps">
+            <div class="step">
+                <span class="step-number">1</span>
+                <p>اختر الخدمة المناسبة لك</p>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                <p>املأ نموذج الحجز</p>
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                <p>سنتواصل معك لتأكيد الموعد</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التواصل -->
+    <section class="contact" id="contact">
+        <h2>تواصل معنا</h2>
+        <p>لأي استفسار يمكنك التواصل عبر الواتساب أو البريد الإلكتروني</p>
+    </section>
+
+    <!-- نموذج الحجز (مخفي في البداية) -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal">
+            <span class="close-btn" id="closeModal">×</span>
+            <h2>نموذج الحجز</h2>
+            <form id="bookingForm">
+                <form id="bookingForm">
+    <div class="form-group">
+        <label>اسم الطالب</label>
+        <input type="text" id="studentName" required>
+    </div>
+
+    <div class="form-group">
+        <label>رقم الهاتف</label>
+        <input type="tel" id="phone" required>
+    </div>
+
+    <div class="form-group">
+        <label>الجامعة</label>
+        <input type="text" id="university" required>
+    </div>
+
+    <div class="form-group">
+        <label>التخصص</label>
+        <input type="text" id="major" required>
+    </div>
+
+    <div class="form-group">
+        <label>المرحلة الدراسية</label>
+        <select id="level" required>
+            <option value="">اختر المرحلة</option>
+            <option value="بكالوريوس">بكالوريوس</option>
+            <option value="ماجستير">ماجستير</option>
+            <option value="دكتوراه">دكتوراه</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>نوع الخدمة</label>
+        <select id="serviceType" required>
+            <option value="">اختر الخدمة</option>
+            <option value="استشارات بحثية">📚 الاستشارات البحثية</option>
+            <option value="تدقيق">📝 التدقيق</option>
+            <option value="تحليل بيانات">📊 تحليل البيانات</option>
+            <option value="مراجع">📖 المراجع</option>
+            <option value="خطة بحث">🎓 خطة البحث</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>الموعد المطلوب</label>
+        <input type="date" id="appointmentDate" required>
+    </div>
+
+    <div class="form-group">
+        <label>ملاحظات</label>
+        <textarea id="notes" rows="3" placeholder="أي تفاصيل إضافية تود ذكرها"></textarea>
+    </div>
+
+    <button type="submit" class="btn-submit">إرسال الحجز</button>
+</form>
+
+<!-- رسالة النجاح -->
+<div class="success-message" id="successMessage">
+    ✅ تم إرسال طلب الحجز بنجاح.
+</div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
