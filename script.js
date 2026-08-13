@@ -80,7 +80,7 @@ bookingForm.addEventListener('submit', (e) => {
         notes: document.getElementById('notes').value.trim()
     };
 
-    fetch('http://localhost:3000/api/bookings', {
+    fetch('https://mindful-growth-production-7692.up.railway.app/api/bookings', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
