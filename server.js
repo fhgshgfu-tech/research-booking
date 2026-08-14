@@ -1,17 +1,18 @@
 const express = require('express');
 const cors = require('cors');
 const { createClient } = require('@supabase/supabase-js');
+require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // السماح لملف script.js بالتواصل مع السيرفر
 app.use(cors());
 app.use(express.json());
 
 // الاتصال بـ Supabase
-const supabaseUrl = 'https://otgwlbwkdlwgyrqkbsla.supabase.co';
-const supabaseKey = 'sb_publishable_OOwHupffONcCunGytkbyvw_FWjv7eza';
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // اختبار: التأكد إن السيرفر شغال
@@ -38,6 +39,23 @@ app.post('/api/bookings', async (req, res) => {
     }
 
     res.json({ success: true, message: 'تم حفظ الحجز بنجاح', booking: data[0] });
+});
+
+// حذف حجز معين
+app.delete('/api/bookings/:id', async (req, res) => {
+    const { id } = req.params;
+
+    const { error } = await supabase
+        .from('bookings')
+        .delete()
+        .eq('id', id);
+
+    if (error) {
+        console.error('خطأ أثناء حذف الحجز:', error.message);
+        return res.status(500).json({ success: false, message: 'حدث خطأ أثناء حذف الحجز' });
+    }
+
+    res.json({ success: true, message: 'تم حذف الحجز بنجاح' });
 });
 
 // جلب كل الحجوزات (لاستخدامها بلوحة تحكم الأدمن)
