@@ -3,6 +3,9 @@ const supabaseUrl = 'https://otgwlbwkdlwgyrqkbsla.supabase.co';
 const supabaseKey = 'sb_publishable_OOwHupffONcCunGytkbyvw_FWjv7eza';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
+// رابط السيرفر
+const SERVER_URL = 'https://mindful-growth-production-7692.up.railway.app';
+
 // عناصر الصفحة
 const loginScreen = document.getElementById('loginScreen');
 const dashboard = document.getElementById('dashboard');
@@ -75,13 +78,13 @@ logoutBtn.addEventListener('click', async () => {
 
 // جلب الحجوزات من السيرفر وعرضها بالجدول
 function loadBookings() {
-   fetch('https://mindful-growth-production-7692.up.railway.app/api/bookings')
+    fetch(`${SERVER_URL}/api/bookings`)
         .then(response => response.json())
         .then(bookings => {
             bookingsBody.innerHTML = '';
 
             if (bookings.length === 0) {
-                bookingsBody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:20px;">لا توجد حجوزات حتى الآن</td></tr>';
+                bookingsBody.innerHTML = '<tr><td colspan="11" style="text-align:center; padding:20px;">لا توجد حجوزات حتى الآن</td></tr>';
                 return;
             }
 
@@ -98,12 +101,43 @@ function loadBookings() {
                     <td>${booking.appointmentDate}</td>
                     <td>${booking.notes || '-'}</td>
                     <td>${booking.createdAt || booking.created_at || ''}</td>
+                    <td><button class="delete-btn" data-id="${booking.id}">حذف 🗑️</button></td>
                 `;
                 bookingsBody.appendChild(row);
+            });
+
+            // ربط كل زر حذف بحدث الضغط
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.getAttribute('data-id');
+                    deleteBooking(id);
+                });
             });
         })
         .catch(error => {
             console.error('خطأ أثناء جلب الحجوزات:', error);
-            bookingsBody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:20px; color:red;">تعذّر الاتصال بالسيرفر</td></tr>';
+            bookingsBody.innerHTML = '<tr><td colspan="11" style="text-align:center; padding:20px; color:red;">تعذّر الاتصال بالسيرفر</td></tr>';
+        });
+}
+
+// حذف حجز معين
+function deleteBooking(id) {
+    const confirmDelete = confirm('هل أنت متأكد من حذف هذا الحجز؟');
+    if (!confirmDelete) return;
+
+    fetch(`${SERVER_URL}/api/bookings/${id}`, {
+        method: 'DELETE'
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                loadBookings(); // إعادة تحميل الجدول بعد الحذف
+            } else {
+                alert(data.message || 'حدث خطأ أثناء الحذف');
+            }
+        })
+        .catch(error => {
+            console.error('خطأ أثناء حذف الحجز:', error);
+            alert('تعذّر الاتصال بالسيرفر');
         });
 }
